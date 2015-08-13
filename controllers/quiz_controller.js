@@ -114,5 +114,5 @@ exports.destroy = function (req, res) {
 };
 
 exports.author = function (req, res) {
-  res.render('author',{});
+  res.render('author',{autor: 'Alfonso Bautista', foto:'images/Foto2.jpg', errors: []});
 };

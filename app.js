@@ -42,6 +42,24 @@ app.use(function(req, res, next) {
   next();
 });
 
+// MW que comprueba la duración de la sesion y la desconecta
+// tras 2 minutos inactiva
+app.use(function(req, res, next){
+
+  if(req.session.user) {
+    if(Date.now() - req.session.user.last>120000){
+      // 2 minutos * 60 segundos * 1000 milisegundos = 120000 milisegundos
+      delete req.session.user;
+      res.redirect('/login');
+    }
+    else {
+      req.session.user.last = Date.now();
+    }
+
+  }
+  next();
+});
+
 app.use('/', routes);
 //app.use('/users', users);
 
